@@ -1,0 +1,3 @@
+<resources>
+    <item name="ic_menu_search" type="drawable">@drawable/search_icon</item>
+</resources>
