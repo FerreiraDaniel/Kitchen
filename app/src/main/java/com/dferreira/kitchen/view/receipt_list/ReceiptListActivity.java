@@ -11,12 +11,12 @@ import android.widget.ProgressBar;
 
 import com.dferreira.kitchen.R;
 import com.dferreira.kitchen.presenter.receipt_list.ReceiptsAdapter;
-import com.dferreira.kitchen.view.GenericSearchActivity;
+import com.dferreira.kitchen.view.GenericRecycleViewActivity;
 
 /**
  * Activity used to show content to sell near from the user
  */
-public class ReceiptListActivity extends GenericSearchActivity<ReceiptsAdapter> {
+public class ReceiptListActivity extends GenericRecycleViewActivity<ReceiptsAdapter> {
 
 
     /**
@@ -56,7 +56,7 @@ public class ReceiptListActivity extends GenericSearchActivity<ReceiptsAdapter> 
     }
 
     /**
-     *  Start the loading of the data of the activity
+     * Start the loading of the data of the activity
      */
     @Override
     protected void onStart() {
@@ -65,7 +65,7 @@ public class ReceiptListActivity extends GenericSearchActivity<ReceiptsAdapter> 
     }
 
     /**
-     *
+     * Called when activity is paused
      */
     @Override
     protected void onPause() {
@@ -74,11 +74,14 @@ public class ReceiptListActivity extends GenericSearchActivity<ReceiptsAdapter> 
     }
 
 
-
-    @SuppressWarnings("StatementWithEmptyBody")
+    /**
+     * Called when of the elements of the navigation menu is pressed
+     *
+     * @param item The selected item
+     * @return If was possible to treat the selected item
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id) {

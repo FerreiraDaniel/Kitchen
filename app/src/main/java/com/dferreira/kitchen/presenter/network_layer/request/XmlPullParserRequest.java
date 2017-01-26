@@ -20,7 +20,6 @@ import java.util.Map;
 /**
  * Makes a request and parses the element using XmlPullParser library
  */
-
 public abstract class XmlPullParserRequest<T> extends Request<T> {
     private final Map<String, String> headers;
     private final Listener<T> listener;
@@ -99,9 +98,11 @@ public abstract class XmlPullParserRequest<T> extends Request<T> {
      * Should be implemented by the sub-classes
      * In order to parse one object
      *
-     * @param parser
-     * @return
-     * @throws Exception
+     * @param parser    The parser of xml
+     *
+     * @return The object that was the result of the parsing process
+     *
+     * @throws Exception    Something went wrong
      */
     protected abstract T parseObject(XmlPullParser parser) throws Exception;
 }

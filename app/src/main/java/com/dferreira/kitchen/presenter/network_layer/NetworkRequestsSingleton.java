@@ -2,19 +2,17 @@ package com.dferreira.kitchen.presenter.network_layer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.dferreira.kitchen.presenter.network_layer.request.ImageLoaderCache;
 
 /**
  * Singleton that is going to be responsible for making the
  * network requests
  */
-
 public class NetworkRequestsSingleton {
     @SuppressLint("StaticFieldLeak")
     private static NetworkRequestsSingleton mInstance;
@@ -30,7 +28,19 @@ public class NetworkRequestsSingleton {
      */
     private Context mCtx;
 
-    private final static int MAX_NUMBER_OF_ENTRIES = 20; //maximum number of entries in the cache
+
+
+    /**
+     * Constructor of the
+     *
+     * @param context   Context that is going to be used to start the cache
+     */
+    private NetworkRequestsSingleton(Context context) {
+        mCtx = context;
+        mRequestQueue = getRequestQueue();
+
+        mImageLoader = setupImageLoader(mRequestQueue);
+    }
 
     /**
      * Setup the image loader
@@ -39,33 +49,8 @@ public class NetworkRequestsSingleton {
      * @return The image loader that was create
      */
     private static ImageLoader setupImageLoader(RequestQueue requestQueue) {
-        return new ImageLoader(requestQueue,
-                new ImageLoader.ImageCache() {
-                    private final LruCache<String, Bitmap>
-                            cache = new LruCache<>(MAX_NUMBER_OF_ENTRIES);
-
-                    @Override
-                    public Bitmap getBitmap(String url) {
-                        return cache.get(url);
-                    }
-
-                    @Override
-                    public void putBitmap(String url, Bitmap bitmap) {
-                        cache.put(url, bitmap);
-                    }
-                });
-    }
-
-    /**
-     * Constructor of the
-     *
-     * @param context
-     */
-    private NetworkRequestsSingleton(Context context) {
-        mCtx = context;
-        mRequestQueue = getRequestQueue();
-
-        mImageLoader = setupImageLoader(mRequestQueue);
+        ImageLoader.ImageCache imageLoader = new ImageLoaderCache();
+        return new ImageLoader(requestQueue, imageLoader);
     }
 
     /**

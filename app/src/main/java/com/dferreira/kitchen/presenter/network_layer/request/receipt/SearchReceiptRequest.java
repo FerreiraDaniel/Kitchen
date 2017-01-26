@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * Makes the request of a list of receipts and parses the xml
  * associated
  */
-
 public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
 
     private final String channelTag = "channel";
@@ -22,7 +21,7 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
     private final String linkTag = "link";
     private final String descriptionTag = "description";
     private final String pubDateTag = "pubDate";
-    private final String guiidTag = "guiId";
+    private final String guiIdTag = "guiId";
 
 
     /**
@@ -38,12 +37,11 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
     }
 
     /**
-     * Should be implemented by the sub-classes
-     * In order to parse one object
+     * Makes the parsing of one channel
      *
-     * @param parser
-     * @return
-     * @throws Exception
+     * @param parser The parse of the xml
+     * @return The channel that is the result of the parsing
+     * @throws Exception Something went front
      */
     @Override
     protected Channel parseObject(XmlPullParser parser) throws Exception {
@@ -52,11 +50,11 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
 
         int eventType = parser.getEventType();
 
-        while (eventType != XmlPullParser.END_DOCUMENT){
+        while (eventType != XmlPullParser.END_DOCUMENT) {
             String name = parser.getName();
-            switch (eventType){
+            switch (eventType) {
                 case XmlPullParser.START_TAG:
-                    if(channelTag.equals(name)) {
+                    if (channelTag.equals(name)) {
                         searchResults = parseChannel(parser);
                     }
                     break;
@@ -69,10 +67,9 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
     }
 
     /**
-     *
-     * @param parser
-     * @return
-     * @throws Exception
+     * @param parser The parser of the xml
+     * @return The channel
+     * @throws Exception Something went wrong
      */
     private Channel parseChannel(XmlPullParser parser) throws Exception {
         Channel channel = new Channel();
@@ -81,7 +78,7 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
 
         while ((eventType != XmlPullParser.END_TAG) || (!channelTag.equals(parser.getName()))) {
             String name = parser.getName();
-            switch (eventType){
+            switch (eventType) {
                 case XmlPullParser.START_DOCUMENT:
                     break;
                 case XmlPullParser.START_TAG:
@@ -109,10 +106,11 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
     }
 
     /**
+     * Parses one receipt
      *
-     * @param parser
-     * @return
-     * @throws Exception
+     * @param parser The parser of the xml
+     * @return The receipt
+     * @throws Exception Something went wrong
      */
     private ReceiptItem parseItem(XmlPullParser parser) throws Exception {
         ReceiptItem item = new ReceiptItem();
@@ -120,7 +118,7 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
 
         while ((eventType != XmlPullParser.END_TAG) || (!itemTag.equals(parser.getName()))) {
             String name = parser.getName();
-            switch (eventType){
+            switch (eventType) {
                 case XmlPullParser.START_DOCUMENT:
                     break;
                 case XmlPullParser.START_TAG:
@@ -141,7 +139,7 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
                             parser.next();
                             item.pubDate = parser.getText();
                             break;
-                        case guiidTag:
+                        case guiIdTag:
                             parser.next();
                             item.guiId = parser.getText();
                     }
