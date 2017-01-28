@@ -1,5 +1,6 @@
 package com.dferreira.kitchen.presenter.network_layer.request;
 
+import android.text.TextUtils;
 import android.util.Xml;
 
 import com.android.volley.AuthFailureError;
@@ -23,21 +24,24 @@ import java.util.Map;
 public abstract class XmlPullParserRequest<T> extends Request<T> {
     private final Map<String, String> headers;
     private final Listener<T> listener;
+    private final String rootTag;
 
     /**
      * Make a request and return a parsed object from xml.
      *
-     * @param method    Which method (GET,POST)
-     * @param url       URL of the request to make
-     * @param headers   Map of request headers
-     * @param listener  Listener that is going to be notify when the parsing is over
+     * @param method        Which method (GET,POST)
+     * @param url           URL of the request to make
+     * @param rootTag       Tag of the root of the xml document
+     * @param headers       Map of request headers
+     * @param listener      Listener that is going to be notify when the parsing is over
      * @param errorListener Listener that is going to be notify when something wrong happen
      */
-    public XmlPullParserRequest(int method, String url, Map<String, String> headers,
+    public XmlPullParserRequest(int method, String url, String rootTag, Map<String, String> headers,
                                 Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.headers = headers;
         this.listener = listener;
+        this.rootTag = rootTag;
     }
 
     /**
@@ -61,6 +65,17 @@ public abstract class XmlPullParserRequest<T> extends Request<T> {
     }
 
     /**
+     *
+     * @param xmlStr
+     *
+     * @return
+     */
+    private int getFirstPositionOfFirstTag(String xmlStr) {
+        int index = xmlStr.indexOf(rootTag);
+        return index - 1;
+    }
+
+    /**
      * This method will be
      * called from a worker thread.  The response will not be delivered
      * if you return null.
@@ -75,10 +90,20 @@ public abstract class XmlPullParserRequest<T> extends Request<T> {
 
             xmlStream = new ByteArrayInputStream(response.data);
             String inputEncoding = HttpHeaderParser.parseCharset(response.headers);
+
+            String xmlStr = new String(response.data, inputEncoding);
+
+            if (!TextUtils.isEmpty(rootTag)) {
+                int seek = getFirstPositionOfFirstTag(xmlStr);
+                if (seek > 0) {
+                    xmlStream.skip(seek);
+                }
+            }
+
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(xmlStream, inputEncoding);
-            parser.nextTag();
+
             return Response.success(
                     parseObject(parser),
                     HttpHeaderParser.parseCacheHeaders(response));
@@ -98,11 +123,9 @@ public abstract class XmlPullParserRequest<T> extends Request<T> {
      * Should be implemented by the sub-classes
      * In order to parse one object
      *
-     * @param parser    The parser of xml
-     *
+     * @param parser The parser of xml
      * @return The object that was the result of the parsing process
-     *
-     * @throws Exception    Something went wrong
+     * @throws Exception Something went wrong
      */
     protected abstract T parseObject(XmlPullParser parser) throws Exception;
 }

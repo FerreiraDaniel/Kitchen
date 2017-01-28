@@ -29,4 +29,9 @@ public class ReceiptItem {
      * Identifier of the receipt
      */
     public String guiId;
+
+    /**
+     * Content of the receipt encoded
+     */
+    public String contentEncoded;
 }

@@ -21,6 +21,10 @@ import com.dferreira.kitchen.view.receipt_details.ReceiptDetailsActivity;
  */
 public class ReceiptsAdapter extends GenericRecyclerViewAdapter {
 
+    /**
+     * Url of the xml feed where is going to get the content
+     */
+    private final String INTENSE_TASTE_URL = "http://feeds2.feedburner.com/saborintenso";
 
     /**
      * Constructor to the view adapter
@@ -58,9 +62,7 @@ public class ReceiptsAdapter extends GenericRecyclerViewAdapter {
     public void startLoading() {
         if (requestPermission(Manifest.permission.INTERNET)) {
             // Instantiate the RequestQueue.
-            String url = "http://receitas-le.webnode.com.br/rss/all.xml";
-
-            ReceiptsRequest request = new ReceiptsRequest(Request.Method.GET, url, this);
+            ReceiptsRequest request = new ReceiptsRequest(Request.Method.GET, INTENSE_TASTE_URL, this);
 
             NetworkRequestsSingleton.getInstance(activity.getApplicationContext()).addToRequestQueue(request);
         }
