@@ -34,4 +34,9 @@ public class ReceiptItem {
      * Content of the receipt encoded
      */
     public String contentEncoded;
+
+    /**
+     * Url with thumbnail of the item
+     */
+    public String thumbnailUrl;
 }

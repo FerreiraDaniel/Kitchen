@@ -23,6 +23,17 @@ public class ReceiptsRequest extends SearchReceiptRequest {
     private static final String TAG = "ReceiptsRequest";
 
     /**
+     * Creates a new request with the given method.
+     *
+     * @param method
+     * @param url
+     * @param recyclerViewAdapter
+     */
+    public ReceiptsRequest(int method, String url, final GenericRecyclerViewAdapter recyclerViewAdapter) {
+        super(method, url, getNormalListener(recyclerViewAdapter), _getErrorListener());
+    }
+
+    /**
      * Creates the handler that is going to handle the response
      *
      * @param recyclerViewAdapter
@@ -40,7 +51,7 @@ public class ReceiptsRequest extends SearchReceiptRequest {
                         ListItem item = new ListItem();
                         item.title = result.title;
                         item.description = result.description;
-                        item.imageUrl = "http://images.media-allrecipes.com/userphotos/250x250/00/70/88/708879.jpg";
+                        item.imageUrl = result.thumbnailUrl;
                         item.detailsUrl = result.link;
 
                         items.add(item);
@@ -60,16 +71,5 @@ public class ReceiptsRequest extends SearchReceiptRequest {
                 Log.d(TAG, "Response is: " + "That didn't work!");
             }
         };
-    }
-
-    /**
-     * Creates a new request with the given method.
-     *
-     * @param method
-     * @param url
-     * @param recyclerViewAdapter
-     */
-    public ReceiptsRequest(int method, String url, final GenericRecyclerViewAdapter recyclerViewAdapter) {
-        super(method, url, getNormalListener(recyclerViewAdapter), _getErrorListener());
     }
 }

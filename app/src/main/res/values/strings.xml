@@ -7,4 +7,6 @@
     <string name="title">title</string>
     <string name="application_logo">Application logo</string>
     <string name="description">description</string>
+    <string name="permission_needed">Permission Needed</string>
+    <string name="rationale">Rationale</string>
 </resources>

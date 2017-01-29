@@ -1,13 +1,7 @@
 package com.dferreira.kitchen.presenter;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -33,8 +27,6 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final int REQUEST_PERMISSION_CODE = 1;
 
     /**
      * Constructor to the view adapter
@@ -127,56 +119,7 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
     }
 
 
-    /**
-     *
-     * @param title
-     * @param message
-     * @param permission
-     * @param permissionRequestCode
-     */
-    private void showExplanation(String title,
-                                 String message,
-                                 final String permission,
-                                 final int permissionRequestCode) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        requestPermission(permission, permissionRequestCode);
-                    }
-                });
-        builder.create().show();
-    }
 
-    private void requestPermission(String permissionName, int permissionRequestCode) {
-        ActivityCompat.requestPermissions(activity,
-                new String[]{permissionName}, permissionRequestCode);
-    }
-
-    /**
-     * Checks if has permission to do something and if not requests to the user
-     *
-     * @param permission The permission to request
-     * @return False ->    Was not possible to the the demand permission
-     * True ->     Everything went alright
-     */
-    protected boolean requestPermission(@NonNull String permission) {
-        int permissionCheck = ContextCompat.checkSelfPermission(activity, permission);
-
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
-                showExplanation("Permission Needed", "Rationale", permission, REQUEST_PERMISSION_CODE);
-            } else {
-                ActivityCompat.requestPermissions(activity,
-                        new String[]{Manifest.permission.READ_PHONE_STATE},
-                        REQUEST_PERMISSION_CODE);
-            }
-            return false;
-        }
-    }
 
 
     /**

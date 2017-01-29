@@ -38,6 +38,7 @@ public class ReceiptItemParser extends GenericXmlParser<ReceiptItem> {
     public ReceiptItem parseObject(XmlPullParser parser) throws Exception {
         ReceiptItem item = new ReceiptItem();
         int eventType = parser.getEventType();
+        ThumbnailParser thumbnailParser = new ThumbnailParser();
 
         while ((eventType != XmlPullParser.END_TAG) || (!getMainTagName().equals(parser.getName()))) {
             String name = parser.getName();
@@ -60,8 +61,11 @@ public class ReceiptItemParser extends GenericXmlParser<ReceiptItem> {
                             break;
                         case guiIdTag:
                             item.guiId = getTextInsideTag(parser);
+                            break;
                         case contentEncodedTag:
                             item.contentEncoded = getTextInsideTag(parser);
+                            item.thumbnailUrl = thumbnailParser.parseObject(parser);
+                            break;
                     }
                     break;
                 case XmlPullParser.END_TAG:

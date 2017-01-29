@@ -14,12 +14,16 @@ import com.android.volley.Request;
 import com.dferreira.kitchen.model.ListItem;
 import com.dferreira.kitchen.presenter.GenericRecyclerViewAdapter;
 import com.dferreira.kitchen.presenter.network_layer.NetworkRequestsSingleton;
+import com.dferreira.kitchen.view.PermissionsRequestHelper;
 import com.dferreira.kitchen.view.receipt_details.ReceiptDetailsActivity;
 
 /**
  * Adapter of the list of elements
  */
 public class ReceiptsAdapter extends GenericRecyclerViewAdapter {
+
+    @SuppressWarnings("FieldCanBeLocal")
+    private static final int REQUEST_PERMISSION_CODE = 1;
 
     /**
      * Url of the xml feed where is going to get the content
@@ -60,7 +64,7 @@ public class ReceiptsAdapter extends GenericRecyclerViewAdapter {
      */
     @Override
     public void startLoading() {
-        if (requestPermission(Manifest.permission.INTERNET)) {
+        if (PermissionsRequestHelper.requestPermission(activity, Manifest.permission.INTERNET, REQUEST_PERMISSION_CODE)) {
             // Instantiate the RequestQueue.
             ReceiptsRequest request = new ReceiptsRequest(Request.Method.GET, INTENSE_TASTE_URL, this);
 
