@@ -6,4 +6,13 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="item_thumbnail" parent="generic_item_thumbnail">
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:elevation">1dp</item>
+    </style>
+
+    <style name="list_item" parent="generic_list_item">
+        <item name="android:elevation">3dp</item>
+    </style>
 </resources>

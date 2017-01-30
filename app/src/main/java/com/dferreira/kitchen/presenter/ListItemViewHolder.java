@@ -12,10 +12,10 @@ import com.dferreira.kitchen.R;
  * View holder to the recycle view
  */
 
-public class ListItemViewHolder extends RecyclerView.ViewHolder {
-    public NetworkImageView thumbnail;
-    public TextView title;
-    public TextView description;
+class ListItemViewHolder extends RecyclerView.ViewHolder {
+    public final NetworkImageView thumbnail;
+    public final TextView title;
+    public final TextView description;
 
     /**
      * In the constructor of the view holder also find the

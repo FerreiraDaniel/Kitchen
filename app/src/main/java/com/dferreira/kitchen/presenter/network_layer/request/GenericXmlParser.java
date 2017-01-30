@@ -23,6 +23,7 @@ public abstract class GenericXmlParser<T> {
     /**
      * @return The tag of the main of the main element to make the parsing
      */
+    @SuppressWarnings("unused")
     public abstract String getMainTagName();
 
 
@@ -31,5 +32,6 @@ public abstract class GenericXmlParser<T> {
      * @return the object that was parsed
      * @throws Exception Something went wrong
      */
+    @SuppressWarnings("unused")
     public abstract T parseObject(XmlPullParser parser) throws Exception;
 }

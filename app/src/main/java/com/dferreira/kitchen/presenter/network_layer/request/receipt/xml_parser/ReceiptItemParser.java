@@ -10,12 +10,19 @@ import org.xmlpull.v1.XmlPullParser;
  */
 public class ReceiptItemParser extends GenericXmlParser<ReceiptItem> {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final String itemTag = "item";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String titleTag = "title";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String linkTag = "link";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String descriptionTag = "description";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String pubDateTag = "pubDate";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String guiIdTag = "guiId";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String contentEncodedTag = "content:encoded";
 
 

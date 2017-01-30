@@ -18,17 +18,18 @@ import java.util.List;
  * recycle view adapter
  */
 
-public class ReceiptsRequest extends SearchReceiptRequest {
+class ReceiptsRequest extends SearchReceiptRequest {
 
     private static final String TAG = "ReceiptsRequest";
 
     /**
      * Creates a new request with the given method.
      *
-     * @param method
-     * @param url
-     * @param recyclerViewAdapter
+     * @param method              The type of request that is to make (GET, POST, etc)
+     * @param url                 Url where is to perform the request
+     * @param recyclerViewAdapter The adapter that is going to be notify when the request finish
      */
+    @SuppressWarnings("SameParameterValue")
     public ReceiptsRequest(int method, String url, final GenericRecyclerViewAdapter recyclerViewAdapter) {
         super(method, url, getNormalListener(recyclerViewAdapter), _getErrorListener());
     }
@@ -36,8 +37,8 @@ public class ReceiptsRequest extends SearchReceiptRequest {
     /**
      * Creates the handler that is going to handle the response
      *
-     * @param recyclerViewAdapter
-     * @return
+     * @param recyclerViewAdapter The adapter that is going to be notify when the request finish
+     * @return The listener that should be used when everything is alright
      */
     private static Response.Listener<Channel> getNormalListener(final GenericRecyclerViewAdapter recyclerViewAdapter) {
         return new Response.Listener<Channel>() {
@@ -64,6 +65,9 @@ public class ReceiptsRequest extends SearchReceiptRequest {
         };
     }
 
+    /**
+     * @return Listener for when something went wrong
+     */
     private static Response.ErrorListener _getErrorListener() {
         return new Response.ErrorListener() {
             @Override

@@ -36,8 +36,9 @@ public abstract class XmlPullParserRequest<T> extends Request<T> {
      * @param listener      Listener that is going to be notify when the parsing is over
      * @param errorListener Listener that is going to be notify when something wrong happen
      */
-    public XmlPullParserRequest(int method, String url, String rootTag, Map<String, String> headers,
-                                Listener<T> listener, Response.ErrorListener errorListener) {
+    @SuppressWarnings("SameParameterValue")
+    protected XmlPullParserRequest(int method, String url, String rootTag, Map<String, String> headers,
+                                   Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.headers = headers;
         this.listener = listener;
@@ -65,14 +66,11 @@ public abstract class XmlPullParserRequest<T> extends Request<T> {
     }
 
     /**
-     *
-     * @param xmlStr
-     *
-     * @return
+     * @param xmlStr The xml that is to parse
+     * @return Position where the root tag is
      */
     private int getFirstPositionOfFirstTag(String xmlStr) {
-        int index = xmlStr.indexOf(rootTag);
-        return index - 1;
+        return xmlStr.indexOf("<" + rootTag);
     }
 
     /**
@@ -96,6 +94,7 @@ public abstract class XmlPullParserRequest<T> extends Request<T> {
             if (!TextUtils.isEmpty(rootTag)) {
                 int seek = getFirstPositionOfFirstTag(xmlStr);
                 if (seek > 0) {
+                    //noinspection ResultOfMethodCallIgnored
                     xmlStream.skip(seek);
                 }
             }

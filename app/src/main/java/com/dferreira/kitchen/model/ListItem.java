@@ -10,6 +10,7 @@ public class ListItem {
     /**
      * Identifier of the item
      */
+    @SuppressWarnings("unused")
     public long id;
 
     /**

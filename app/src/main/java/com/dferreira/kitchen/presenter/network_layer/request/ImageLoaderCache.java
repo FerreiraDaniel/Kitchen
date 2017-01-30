@@ -16,7 +16,7 @@ public class ImageLoaderCache implements ImageLoader.ImageCache {
      */
     private final static int MAX_NUMBER_OF_ENTRIES = 20;
 
-    private LruCache<String, Bitmap> cache;
+    private final LruCache<String, Bitmap> cache;
 
     /**
      * Constructor of the image cache loader

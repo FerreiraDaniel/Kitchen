@@ -16,27 +16,24 @@ import com.dferreira.kitchen.presenter.network_layer.request.ImageLoaderCache;
 public class NetworkRequestsSingleton {
     @SuppressLint("StaticFieldLeak")
     private static NetworkRequestsSingleton mInstance;
-    private RequestQueue mRequestQueue;
-
     /**
      * ImageLoader is a an orchestrator for large numbers of ImageRequests
      */
-    private ImageLoader mImageLoader;
-
+    private final ImageLoader mImageLoader;
     /**
      * Should be one application context otherwise there is risk of a memory leak
      */
-    private Context mCtx;
-
+    private final Context context;
+    private RequestQueue mRequestQueue;
 
 
     /**
      * Constructor of the
      *
-     * @param context   Context that is going to be used to start the cache
+     * @param context Context that is going to be used to start the cache
      */
     private NetworkRequestsSingleton(Context context) {
-        mCtx = context;
+        this.context = context;
         mRequestQueue = getRequestQueue();
 
         mImageLoader = setupImageLoader(mRequestQueue);
@@ -69,25 +66,27 @@ public class NetworkRequestsSingleton {
     /**
      * @return The queue of requests
      */
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
+            mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
         }
         return mRequestQueue;
     }
 
     /**
-     * @param req
-     * @param <T>
+     * Adds one request to the requests queue
+     *
+     * @param request The request to add in the ques
+     * @param <T>     Type of object to make the request
      */
-    public <T> void addToRequestQueue(Request<T> req) {
-        getRequestQueue().add(req);
+    public <T> void addToRequestQueue(Request<T> request) {
+        getRequestQueue().add(request);
     }
 
     /**
-     * @return
+     * @return The loader of the images
      */
     public ImageLoader getImageLoader() {
         return mImageLoader;

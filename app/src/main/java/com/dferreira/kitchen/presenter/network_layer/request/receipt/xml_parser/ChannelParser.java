@@ -16,7 +16,9 @@ import java.util.ArrayList;
 
 public class ChannelParser extends GenericXmlParser<Channel> {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final String channelTag = "channel";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String titleTag = "title";
 
     /**

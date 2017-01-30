@@ -10,6 +10,7 @@ public class Channel {
     /**
      * Title of the channel
      */
+    @SuppressWarnings("unused")
     public String title;
 
     /**

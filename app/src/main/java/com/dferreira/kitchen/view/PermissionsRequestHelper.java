@@ -62,6 +62,7 @@ public class PermissionsRequestHelper {
      * @return False ->    Was not possible to the the demand permission
      * True ->     Everything went alright
      */
+    @SuppressWarnings("SameParameterValue")
     public static boolean requestPermission(@NonNull final Activity activity, @NonNull String permission, int requestCode) {
         int permissionCheck = ContextCompat.checkSelfPermission(activity, permission);
 

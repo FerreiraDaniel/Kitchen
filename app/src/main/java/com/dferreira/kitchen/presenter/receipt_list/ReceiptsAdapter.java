@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.dferreira.kitchen.model.ListItem;
@@ -28,6 +27,7 @@ public class ReceiptsAdapter extends GenericRecyclerViewAdapter {
     /**
      * Url of the xml feed where is going to get the content
      */
+    @SuppressWarnings("FieldCanBeLocal")
     private final String INTENSE_TASTE_URL = "http://feeds2.feedburner.com/saborintenso";
 
     /**
@@ -50,7 +50,6 @@ public class ReceiptsAdapter extends GenericRecyclerViewAdapter {
     @Override
     public void onClick(View v) {
         ListItem item = getItemByView(v);
-        Toast.makeText(activity, item.title, Toast.LENGTH_LONG).show();
         if ((item != null) && (!TextUtils.isEmpty(item.detailsUrl))) {
             Intent intent = new Intent(activity, ReceiptDetailsActivity.class);
             intent.putExtra(ReceiptDetailsActivity.TITLE, item.title);

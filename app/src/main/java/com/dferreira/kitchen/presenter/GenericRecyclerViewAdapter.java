@@ -22,29 +22,35 @@ import java.util.List;
 
 public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<ListItemViewHolder> implements View.OnClickListener {
 
-    protected Activity activity;
+    protected final Activity activity;
+    private final RecyclerView recyclerView;
+    private final ProgressBar progressBar;
     private List<ListItem> dataSet;
-    private RecyclerView recyclerView;
-    private ProgressBar progressBar;
 
 
     /**
      * Constructor to the view adapter
      *
-     * @param activity      Reference to the context where the adapter will be used
+     * @param activity     Reference to the context where the adapter will be used
      * @param recyclerView Reference to the recycle view to use
      * @param progressBar  Reference to the progress bar that indicates to the user that is using data
      */
-    public GenericRecyclerViewAdapter(@NonNull Activity activity,
-                                      @NonNull RecyclerView recyclerView,
-                                      @NonNull ProgressBar progressBar
+    protected GenericRecyclerViewAdapter(@NonNull Activity activity,
+                                         @NonNull RecyclerView recyclerView,
+                                         @NonNull ProgressBar progressBar
     ) {
         this.activity = activity;
         this.recyclerView = recyclerView;
         this.progressBar = progressBar;
     }
 
-    // Create new views (invoked by the layout manager)
+    /**
+     * Create new views (invoked by the layout manager)
+     *
+     * @param parent   The view group of the item
+     * @param viewType The type of view
+     * @return The item view holder
+     */
     @Override
     public ListItemViewHolder onCreateViewHolder(ViewGroup parent,
                                                  int viewType) {
@@ -53,15 +59,14 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
                 .inflate(R.layout.receipt_list_item, parent, false);
         // set the view's size, margins, padding and layout parameters
         v.setOnClickListener(this);
-        ListItemViewHolder vh = new ListItemViewHolder(v);
-        return vh;
+        return new ListItemViewHolder(v);
     }
 
 
     /**
      * Replace the contents of a view (invoked by the layout manager)
      *
-     * @param holder    The holder of the item of the recycle view
+     * @param holder   The holder of the item of the recycle view
      * @param position The position of the the item
      */
     @Override
@@ -69,7 +74,10 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
         if ((dataSet != null) && (position < dataSet.size())) {
             ListItem item = dataSet.get(position);
 
-            if(!TextUtils.isEmpty(item.imageUrl)) {
+            if (TextUtils.isEmpty(item.imageUrl)) {
+                holder.thumbnail.setImageUrl(null, null);
+                holder.thumbnail.setImageBitmap(null);
+            } else {
                 ImageLoader imageLoader = NetworkRequestsSingleton.getInstance(activity.getApplicationContext()).getImageLoader();
                 holder.thumbnail.setImageUrl(item.imageUrl, imageLoader);
             }
@@ -107,8 +115,7 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
      */
     protected ListItem getItemByView(View v) {
         int itemPosition = recyclerView.getChildLayoutPosition(v);
-        ListItem item = dataSet.get(itemPosition);
-        return item;
+        return dataSet.get(itemPosition);
     }
 
     /**
@@ -117,9 +124,6 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
     public void setDataSet(List<ListItem> dataSet) {
         this.dataSet = dataSet;
     }
-
-
-
 
 
     /**
@@ -134,12 +138,14 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
     /**
      * Should be used by the activity to indicate that is able to receive content
      */
+    @SuppressWarnings("unused")
     public abstract void startLoading();
 
     /**
      * Should be used by the activity to indicate that is able no able to receive content
      * anymore
      */
+    @SuppressWarnings({"unused", "EmptyMethod"})
     public abstract void stopLoading();
 
 }

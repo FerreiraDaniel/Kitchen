@@ -23,11 +23,13 @@ public class ReceiptItem {
     /**
      * Date when the receipt was publish
      */
+    @SuppressWarnings("unused")
     public String pubDate;
 
     /**
      * Identifier of the receipt
      */
+    @SuppressWarnings("unused")
     public String guiId;
 
     /**

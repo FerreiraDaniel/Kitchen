@@ -1,7 +1,5 @@
 package com.dferreira.kitchen.presenter.network_layer.request.receipt;
 
-import android.util.Log;
-
 import com.android.volley.Response;
 import com.dferreira.kitchen.presenter.network_layer.request.XmlPullParserRequest;
 import com.dferreira.kitchen.presenter.network_layer.request.receipt.model.Channel;
@@ -27,7 +25,7 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
      * @param listener      Listener that is going to be notify when the parsing is over
      * @param errorListener Listener that is going to be notify when something wrong happen
      */
-    public SearchReceiptRequest(int method, String url, Response.Listener<Channel> listener, Response.ErrorListener errorListener) {
+    protected SearchReceiptRequest(int method, String url, Response.Listener<Channel> listener, Response.ErrorListener errorListener) {
         super(method, url, rssTag, null, listener, errorListener);
     }
 
@@ -45,8 +43,6 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
 
         int eventType = parser.getEventType();
 
-        StringBuilder sb = new StringBuilder();
-
 
         while (eventType != XmlPullParser.END_DOCUMENT) {
             String name = parser.getName();
@@ -58,7 +54,6 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
                     break;
             }
             eventType = parser.next();
-            Log.d("tag", sb.toString());
         }
 
         return searchResults;
