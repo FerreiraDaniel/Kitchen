@@ -54,7 +54,7 @@ public class ReceiptsAdapter extends GenericRecyclerViewAdapter {
             Intent intent = new Intent(activity, ReceiptDetailsActivity.class);
             intent.putExtra(ReceiptDetailsActivity.TITLE, item.title);
             intent.putExtra(ReceiptDetailsActivity.URL, item.detailsUrl);
-            activity.startActivity(intent);
+            GenericRecyclerViewAdapter.startNewActivity(activity, v, intent);
         }
     }
 

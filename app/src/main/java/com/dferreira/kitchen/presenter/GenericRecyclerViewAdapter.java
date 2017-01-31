@@ -1,6 +1,10 @@
 package com.dferreira.kitchen.presenter;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -45,6 +49,24 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
     }
 
     /**
+     * Start a new activity if possible with material design transition
+     *
+     * @param activityOrigin The Activity whose window contains the shared elements.
+     * @param sharedView     the view that is going to be shared between activities
+     * @param intent         intent that is going to be used to launch the new activity
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected static void startNewActivity(Activity activityOrigin, View sharedView, Intent intent) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            activityOrigin.startActivity(intent);
+        } else {
+            String transitionName = activityOrigin.getResources().getString(R.string.toolbar_transition);
+            ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(activityOrigin, sharedView, transitionName);
+            activityOrigin.startActivity(intent, transitionActivityOptions.toBundle());
+        }
+    }
+
+    /**
      * Create new views (invoked by the layout manager)
      *
      * @param parent   The view group of the item
@@ -61,7 +83,6 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
         v.setOnClickListener(this);
         return new ListItemViewHolder(v);
     }
-
 
     /**
      * Replace the contents of a view (invoked by the layout manager)
@@ -86,7 +107,6 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
         }
     }
 
-
     /**
      * If during the measurement of the content has zero elements is going to show the spinner
      * instead of the list
@@ -106,7 +126,6 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
         }
     }
 
-
     /**
      * Find the item that is supported by a certain view
      *
@@ -124,7 +143,6 @@ public abstract class GenericRecyclerViewAdapter extends RecyclerView.Adapter<Li
     public void setDataSet(List<ListItem> dataSet) {
         this.dataSet = dataSet;
     }
-
 
     /**
      * Called when the user clicks in one item of the list

@@ -33,4 +33,5 @@
     </style>
 
     <style name="item_thumbnail" parent="generic_item_thumbnail" />
+
 </resources>
