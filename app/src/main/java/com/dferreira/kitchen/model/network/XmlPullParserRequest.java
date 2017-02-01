@@ -1,4 +1,4 @@
-package com.dferreira.kitchen.presenter.network_layer.request;
+package com.dferreira.kitchen.model.network;
 
 import android.text.TextUtils;
 import android.util.Xml;

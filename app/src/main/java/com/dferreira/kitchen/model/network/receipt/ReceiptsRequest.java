@@ -1,14 +1,13 @@
-package com.dferreira.kitchen.presenter.receipt_list;
+package com.dferreira.kitchen.model.network.receipt;
 
 import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dferreira.kitchen.model.ListItem;
+import com.dferreira.kitchen.model.network.receipt.entities.Channel;
+import com.dferreira.kitchen.model.network.receipt.entities.ReceiptItem;
 import com.dferreira.kitchen.presenter.GenericRecyclerViewAdapter;
-import com.dferreira.kitchen.presenter.network_layer.request.receipt.SearchReceiptRequest;
-import com.dferreira.kitchen.presenter.network_layer.request.receipt.model.Channel;
-import com.dferreira.kitchen.presenter.network_layer.request.receipt.model.ReceiptItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
  * recycle view adapter
  */
 
-class ReceiptsRequest extends SearchReceiptRequest {
+public class ReceiptsRequest extends SearchReceiptRequest {
 
     private static final String TAG = "ReceiptsRequest";
 

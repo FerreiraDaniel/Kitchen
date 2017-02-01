@@ -1,9 +1,9 @@
-package com.dferreira.kitchen.presenter.network_layer.request.receipt;
+package com.dferreira.kitchen.model.network.receipt;
 
 import com.android.volley.Response;
-import com.dferreira.kitchen.presenter.network_layer.request.XmlPullParserRequest;
-import com.dferreira.kitchen.presenter.network_layer.request.receipt.model.Channel;
-import com.dferreira.kitchen.presenter.network_layer.request.receipt.xml_parser.ChannelParser;
+import com.dferreira.kitchen.model.network.XmlPullParserRequest;
+import com.dferreira.kitchen.model.network.receipt.entities.Channel;
+import com.dferreira.kitchen.model.network.receipt.xml_parser.ChannelParser;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -25,7 +25,7 @@ public class SearchReceiptRequest extends XmlPullParserRequest<Channel> {
      * @param listener      Listener that is going to be notify when the parsing is over
      * @param errorListener Listener that is going to be notify when something wrong happen
      */
-    protected SearchReceiptRequest(int method, String url, Response.Listener<Channel> listener, Response.ErrorListener errorListener) {
+    SearchReceiptRequest(int method, String url, Response.Listener<Channel> listener, Response.ErrorListener errorListener) {
         super(method, url, rssTag, null, listener, errorListener);
     }
 

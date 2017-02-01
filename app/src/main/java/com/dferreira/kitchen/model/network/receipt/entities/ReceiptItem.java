@@ -1,4 +1,4 @@
-package com.dferreira.kitchen.presenter.network_layer.request.receipt.model;
+package com.dferreira.kitchen.model.network.receipt.entities;
 
 /**
  * Receipt in one item

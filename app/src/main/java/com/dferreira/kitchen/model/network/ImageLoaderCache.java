@@ -1,4 +1,4 @@
-package com.dferreira.kitchen.presenter.network_layer.request;
+package com.dferreira.kitchen.model.network;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
@@ -9,7 +9,7 @@ import com.android.volley.toolbox.ImageLoader;
  * Cache that is going to keep the images response of images from network
  * in cache
  */
-public class ImageLoaderCache implements ImageLoader.ImageCache {
+class ImageLoaderCache implements ImageLoader.ImageCache {
 
     /**
      * Maximum number of entries in the cache

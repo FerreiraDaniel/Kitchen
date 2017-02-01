@@ -1,4 +1,4 @@
-package com.dferreira.kitchen.presenter.network_layer.request;
+package com.dferreira.kitchen.model.network;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

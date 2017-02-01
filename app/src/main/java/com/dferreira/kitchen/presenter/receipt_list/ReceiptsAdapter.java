@@ -11,8 +11,9 @@ import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.dferreira.kitchen.model.ListItem;
+import com.dferreira.kitchen.model.network.NetworkRequestsSingleton;
+import com.dferreira.kitchen.model.network.receipt.ReceiptsRequest;
 import com.dferreira.kitchen.presenter.GenericRecyclerViewAdapter;
-import com.dferreira.kitchen.presenter.network_layer.NetworkRequestsSingleton;
 import com.dferreira.kitchen.view.PermissionsRequestHelper;
 import com.dferreira.kitchen.view.receipt_details.ReceiptDetailsActivity;
 

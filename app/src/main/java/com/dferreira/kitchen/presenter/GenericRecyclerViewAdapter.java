@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import com.android.volley.toolbox.ImageLoader;
 import com.dferreira.kitchen.R;
 import com.dferreira.kitchen.model.ListItem;
-import com.dferreira.kitchen.presenter.network_layer.NetworkRequestsSingleton;
+import com.dferreira.kitchen.model.network.NetworkRequestsSingleton;
 
 import java.util.List;
 

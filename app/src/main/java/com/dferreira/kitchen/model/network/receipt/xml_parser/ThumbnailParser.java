@@ -1,9 +1,9 @@
-package com.dferreira.kitchen.presenter.network_layer.request.receipt.xml_parser;
+package com.dferreira.kitchen.model.network.receipt.xml_parser;
 
 import android.text.TextUtils;
 import android.util.Xml;
 
-import com.dferreira.kitchen.presenter.network_layer.request.GenericXmlParser;
+import com.dferreira.kitchen.model.network.GenericXmlParser;
 
 import org.xmlpull.v1.XmlPullParser;
 

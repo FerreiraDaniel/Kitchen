@@ -1,4 +1,4 @@
-package com.dferreira.kitchen.presenter.network_layer;
+package com.dferreira.kitchen.model.network;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,7 +7,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.dferreira.kitchen.presenter.network_layer.request.ImageLoaderCache;
 
 /**
  * Singleton that is going to be responsible for making the
