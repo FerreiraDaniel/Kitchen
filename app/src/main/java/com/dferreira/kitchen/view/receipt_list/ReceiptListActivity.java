@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 
 import com.dferreira.kitchen.R;
+import com.dferreira.kitchen.model.database.ReceiptRepository;
 import com.dferreira.kitchen.presenter.receipt_list.ReceiptsAdapter;
 import com.dferreira.kitchen.view.GenericRecycleViewActivity;
 
@@ -53,6 +54,15 @@ public class ReceiptListActivity extends GenericRecycleViewActivity<ReceiptsAdap
         super.configureToolBar();
 
         this.bindViews();
+
+        ReceiptRepository receiptRepository = new ReceiptRepository(this.getApplicationContext());
+        try {
+
+        } finally {
+            receiptRepository.close();
+        }
+
+
     }
 
     /**

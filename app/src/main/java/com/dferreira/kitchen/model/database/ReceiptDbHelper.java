@@ -4,10 +4,25 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.dferreira.kitchen.model.database.entities.Receipt;
+
 /**
  * Provides the necessary elements to access to the database
  */
 public class ReceiptDbHelper extends SQLiteOpenHelper {
+
+    private static final String CREATE_RECEIPTS_TABLE = "CREATE TABLE " + Receipt.TABLE_NAME + "(" +
+            Receipt.ID_COLUMN_NAME + " INTEGER PRIMARY KEY     AUTOINCREMENT," +
+            Receipt.LINK_COLUMN_NAME + " TEXT    NULL," +
+            Receipt.DESCRIPTION_COLUMN_NAME + " TEXT    NULL," +
+            Receipt.TITLE_COLUMN_NAME + " TEXT    NULL," +
+            Receipt.CONTENT_ENCODED_COLUMN_NAME + " TEXT    NULL," +
+            Receipt.THUMBNAIL_URL_COLUMN_NAME + " TEXT    NULL," +
+            Receipt.THUMBNAIL_PATH_COLUMN_NAME + " TEXT    NULL" +
+            ");";
+
+    private static final String SQL_DELETE_ENTRIES = "DROP TABLE " + Receipt.TABLE_NAME + ";";
+
 
     // If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION = 1;
@@ -28,7 +43,7 @@ public class ReceiptDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(CREATE_RECEIPTS_TABLE);
     }
 
     /**
@@ -53,6 +68,9 @@ public class ReceiptDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+// This database is only a cache for online data, so its upgrade policy is
+        // to simply to discard the data and start over
+        db.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(db);
     }
 }

@@ -64,6 +64,8 @@ public class ReceiptsAdapter extends GenericRecyclerViewAdapter {
      */
     @Override
     public void startLoading() {
+
+
         if (PermissionsRequestHelper.requestPermission(activity, Manifest.permission.INTERNET, REQUEST_PERMISSION_CODE)) {
             // Instantiate the RequestQueue.
             ReceiptsRequest request = new ReceiptsRequest(Request.Method.GET, INTENSE_TASTE_URL, this);
