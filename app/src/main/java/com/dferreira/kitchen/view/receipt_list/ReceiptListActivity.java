@@ -24,7 +24,7 @@ public class ReceiptListActivity extends GenericRecycleViewActivity<ReceiptsAdap
      * Find the views that is going to use in the activity
      */
     private void bindViews() {
-        this.lstResults = (RecyclerView) this.findViewById(R.id.near_by_list);
+        this.lstResults = (RecyclerView) this.findViewById(R.id.items_list);
         this.loadProgress = (ProgressBar) this.findViewById(R.id.load_progress);
 
 

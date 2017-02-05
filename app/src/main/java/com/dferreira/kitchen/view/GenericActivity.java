@@ -1,6 +1,8 @@
 package com.dferreira.kitchen.view;
 
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -60,4 +62,14 @@ public abstract class GenericActivity extends AppCompatActivity implements Navig
      */
     @Override
     public abstract boolean onNavigationItemSelected(@NonNull MenuItem item);
+
+
+    /**
+     * Prevent the crash due to animations when the user go to the activity back.
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void finishAfterTransition() {
+        finish();
+    }
 }
